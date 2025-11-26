@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Name - Animation Pre-Production & Administration</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #2c3e50;
+            background: #0a0e27;
+            overflow-x: hidden;
+        }
+
+        .animated-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            background: linear-gradient(135deg, #0a0e27 0%, #1a1d3e 100%);
+        }
+
+        .floating-shapes {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .shape {
+            position: absolute;
+            opacity: 0.1;
+            animation: float 20s infinite ease-in-out;
+        }
+
+        .shape:nth-child(1) {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #ff6b6b, #ee5a6f);
+            border-radius: 50%;
+            top: 20%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .shape:nth-child(2) {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(135deg, #4ecdc4, #44a08d);
+            border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+            top: 60%;
+            right: 15%;
+            animation-delay: 3s;
+        }
+
+        .shape:nth-child(3) {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, #f7b731, #f38b00);
+            clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+            bottom: 20%;
+            left: 20%;
+            animation-delay: 6s;
+        }
+
+        .shape:nth-child(4) {
+            width: 90px;
+            height: 90px;
+            background: linear-gradient(135deg, #a55eea, #8854d0);
+            border-radius: 20px;
+            top: 40%;
+            right: 30%;
+            animation-delay: 9s;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-50px) rotate(180deg);
+            }
+        }
+
+        .content-wrapper {
+            position: relative;
+            z-index: 2;
+        }
+
+        .header {
+            background: transparent;
+            color: white;
+            padding: 120px 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .header h1 {
+            font-size: 4.5em;
+            font-weight: 800;
+            margin-bottom: 20px;
+            letter-spacing: -2px;
+            background: linear-gradient(135deg, #fff 0%, #a8edea 50%, #fed6e3 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: glow 3s ease-in-out infinite;
+        }
+
+        @keyframes glow {
+            0%, 100% {
+                filter: drop-shadow(0 0 20px rgba(168, 237, 234, 0.5));
+            }
+            50% {
+                filter: drop-shadow(0 0 40px rgba(254, 214, 227, 0.8));
+            }
+        }
+
+        .tagline {
+            font-size: 1.8em;
+            font-weight: 300;
+            margin-bottom: 15px;
+            color: #a8edea;
+            text-shadow: 0 0 30px rgba(168, 237, 234, 0.5);
+        }
+
+        .subtitle {
+            font-size: 1.2em;
+            opacity: 0.8;
+            color: #fed6e3;
+        }
+
+        .cta-button {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 15px 40px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1em;
+            transition: all 0.3s;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.6);
+        }
+
+        nav {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            flex-wrap: wrap;
+        }
+
+        nav ul li a {
+            display: block;
+            padding: 20px 30px;
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            transition: all 0.3s;
+            transform: translateX(-50%);
+        }
+
+        nav ul li a:hover::after {
+            width: 80%;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 100px 20px;
+        }
+
+        .section {
+            margin-bottom: 120px;
+        }
+
+        .section-title {
+            font-size: 3em;
+            color: white;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 20px;
+            text-align: center;
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            border-radius: 2px;
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 60px;
+            margin-top: 60px;
+            align-items: center;
+        }
+
+        .about-visual {
+            position: relative;
+            height: 400px;
+        }
+
+        .profile-card {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 5em;
+            font-weight: 700;
+            box-shadow: 0 20px 60px rgba(102, 126, 234, 0.4);
+            overflow: hidden;
+        }
+
+        .profile-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+            animation: shine 3s infinite;
+        }
+
+        @keyframes shine {
+            0% {
+                transform: translateX(-100%) translateY(-100%) rotate(45deg);
+            }
+            100% {
+                transform: translateX(100%) translateY(100%) rotate(45deg);
+            }
+        }
+
+        .about-content {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 40px;
+        }
+
+        .about-content p {
+            font-size: 1.15em;
+            margin-bottom: 25px;
+            color: rgba(255, 255, 255, 0.9);
+            line-height: 1.8;
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.2) 0%, rgba(118, 75, 162, 0.2) 100%);
+            border: 2px solid rgba(102, 126, 234, 0.3);
+            color: white;
+            padding: 30px;
+            border-radius: 20px;
+            margin-top: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .highlight-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at top right, rgba(168, 237, 234, 0.1), transparent);
+            pointer-events: none;
+        }
+
+        .highlight-box h3 {
+            font-size: 1.6em;
+            margin-bottom: 15px;
+            color: #a8edea;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .project-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 25px;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+
+        .project-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 0 30px 60px rgba(102, 126, 234, 0.3);
+            border-color: rgba(168, 237, 234, 0.5);
+        }
+
+        .project-card:hover::before {
+            opacity: 1;
+        }
+
+        .project-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 80px 30px;
+            text-align: center;
+            font-size: 2.2em;
+            font-weight: 700;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-header::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(255,255,255,0.2), transparent);
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+        }
+
+        .project-content {
+            padding: 35px;
+            position: relative;
+        }
+
+        .project-content h3 {
+            font-size: 1.6em;
+            color: #a8edea;
+            margin-bottom: 10px;
+        }
+
+        .project-role {
+            color: #fed6e3;
+            font-weight: 600;
+            margin-bottom: 20px;
+            font-size: 1.1em;
+        }
+
+        .project-content p {
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 20px;
+            line-height: 1.8;
+        }
+
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 25px;
+        }
+
+        .tag {
+            background: rgba(102, 126, 234, 0.2);
+            border: 1px solid rgba(102, 126, 234, 0.4);
+            padding: 8px 18px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            color: #a8edea;
+            transition: all 0.3s;
+        }
+
+        .tag:hover {
+            background: rgba(102, 126, 234, 0.3);
+            transform: scale(1.05);
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 60px;
+        }
+
+        .skill-category {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 40px;
+            border-radius: 20px;
+            transition: all 0.4s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .skill-category::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 0;
+            background: linear-gradient(180deg, #667eea, #764ba2);
+            transition: height 0.4s;
+        }
+
+        .skill-category:hover {
+            transform: translateX(10px);
+            border-color: rgba(168, 237, 234, 0.5);
+        }
+
+        .skill-category:hover::before {
+            height: 100%;
+        }
+
+        .skill-category h3 {
+            color: #a8edea;
+            font-size: 1.5em;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .skill-category h3::before {
+            content: '◆';
+            color: #fed6e3;
+            font-size: 1.2em;
+        }
+
+        .skill-category ul {
+            list-style: none;
+        }
+
+        .skill-category ul li {
+            padding: 15px 0;
+            color: rgba(255, 255, 255, 0.8);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 1.05em;
+            transition: all 0.3s;
+        }
+
+        .skill-category ul li:hover {
+            color: #a8edea;
+            padding-left: 10px;
+        }
+
+        .skill-category ul li:last-child {
+            border-bottom: none;
+        }
+
+        .contact-section {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 40px;
+            color: white;
+            padding: 80px 40px;
+            text-align: center;
+            margin-top: 100px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(168, 237, 234, 0.1), transparent);
+            animation: rotate 20s linear infinite;
+        }
+
+        @keyframes rotate {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .contact-section .section-title {
+            position: relative;
+            z-index: 2;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+            max-width: 1000px;
+            margin-left: auto;
+            margin-right: auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .contact-item {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 35px;
+            border-radius: 20px;
+            transition: all 0.4s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.2), rgba(118, 75, 162, 0.2));
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+
+        .contact-item:hover {
+            transform: translateY(-10px) scale(1.05);
+            border-color: rgba(168, 237, 234, 0.6);
+            box-shadow: 0 20px 40px rgba(102, 126, 234, 0.3);
+        }
+
+        .contact-item:hover::before {
+            opacity: 1;
+        }
+
+        .contact-item h3 {
+            font-size: 1.4em;
+            margin-bottom: 15px;
+            color: #a8edea;
+            position: relative;
+        }
+
+        .contact-item a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.1em;
+            opacity: 0.9;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .contact-item a:hover {
+            opacity: 1;
+            color: #fed6e3;
+        }
+
+        footer {
+            background: transparent;
+            color: rgba(255, 255, 255, 0.6);
+            text-align: center;
+            padding: 40px 20px;
+            margin-top: 60px;
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 30px;
+            height: 50px;
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            border-radius: 20px;
+            display: flex;
+            justify-content: center;
+            padding-top: 10px;
+        }
+
+        .scroll-indicator::before {
+            content: '';
+            width: 6px;
+            height: 10px;
+            background: white;
+            border-radius: 3px;
+            animation: scroll 2s infinite;
+        }
+
+        @keyframes scroll {
+            0%, 100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            50% {
+                opacity: 0.3;
+                transform: translateY(15px);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2.8em;
+            }
+
+            .about-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            nav ul {
+                flex-direction: column;
+            }
+
+            .section-title {
+                font-size: 2.2em;
+            }
+
+            .about-visual {
+                height: 300px;
+            }
+
+            .profile-card {
+                font-size: 3.5em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="animated-bg"></div>
+    <div class="floating-shapes">
+        <div class="shape"></div>
+        <div class="shape"></div>
+        <div class="shape"></div>
+        <div class="shape"></div>
+    </div>
+
+    <div class="content-wrapper">
+        <header class="header">
+            <div class="header-content">
+                <h1>Your Name</h1>
+                <p class="tagline">Animation Pre-Production Specialist & Story Architect</p>
+                <p class="subtitle">Where Creative Vision Meets Operational Excellence</p>
+                <a href="#contact" class="cta-button">Let's Create Together</a>
+                <div class="scroll-indicator"></div>
+            </div>
+        </header>
+
+        <nav>
+            <ul>
+                <li><a href="#about">About</a></li>
+                <li><a href="#work">Work & Achievements</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+
+        <div class="container">
+            <section id="about" class="section">
+                <h2 class="section-title">About Me</h2>
+                <div class="about-grid">
+                    <div class="about-visual">
+                        <div class="profile-card">YN</div>
+                    </div>
+                    <div class="about-content">
+                        <p>I'm the backbone of animation excellence—the strategic mind who transforms ambitious creative concepts into smoothly executed productions. With deep expertise in pre-production coordination, story development, and production infrastructure, I ensure every project has the foundation it needs to succeed.</p>
+                        
+                        <p>My superpower is understanding both the creative soul and technical reality of animation. I speak fluently with directors about narrative arc and with production teams about pipeline efficiency. This dual fluency makes me the essential bridge that keeps complex productions on track, on budget, and on vision.</p>
+                        
+                        <p>From script breakdowns to storyboard coordination, from budget management to cross-departmental communication, I thrive in the organized chaos of bringing animated stories to life. I don't just manage processes—I architect systems that empower creative teams to do their best work.</p>
+                        
+                        <div class="highlight-box">
+                            <h3>What I Bring to Your Team</h3>
+                            <p>✦ Strategic pre-production planning that prevents downstream problems ✦ Story development and script coordination expertise ✦ Production pipeline optimization and documentation ✦ Cross-functional team leadership and communication ✦ Resource management and scheduling mastery ✦ Problem-solving that keeps productions moving forward</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="work" class="section">
+                <h2 class="section-title">Work & Achievements</h2>
+                <div class="projects-grid">
+                    <div class="project-card">
+                        <div class="project-header">PROJECT 1</div>
+                        <div class="project-content">
+                            <h3>Feature Film Title Here</h3>
+                            <p class="project-role">Production Coordinator • Story Development Lead</p>
+                            <p>Orchestrated pre-production for an 18-month feature involving 50+ artists across multiple departments. Built comprehensive story documentation system that reduced revision cycles by 40% and saved the studio thousands in production hours. Managed script evolution, coordinated storyboard reviews, and maintained the production bible that became the creative North Star for the entire team.</p>
+                            <div class="project-tags">
+                                <span class="tag">Production Management</span>
+                                <span class="tag">Story Architecture</span>
+                                <span class="tag">Team Leadership</span>
+                                <span class="tag">Process Optimization</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="project-card">
+                        <div class="project-header">PROJECT 2</div>
+                        <div class="project-content">
+                            <h3>Animated Series Name</h3>
+                            <p class="project-role">Pre-Production Administrator • Pipeline Developer</p>
+                            <p>Designed and implemented production infrastructure for 26-episode animated series from ground up. Created tracking systems for script approvals, asset progression, and episode status that increased team efficiency by 35%. Served as communication hub between writers, directors, and production departments, ensuring seamless handoffs and eliminating bottlenecks throughout the pipeline.</p>
+                            <div class="project-tags">
+                                <span class="tag">Pipeline Development</span>
+                                <span class="tag">Systems Design</span>
+                                <span class="tag">Cross-Department Coordination</span>
+                                <span class="tag">Efficiency Optimization</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="project-card">
+                        <div class="project-header">PROJECT 3</div>
+                        <div class="project-content">
+                            <h3>Award-Winning Short Film</h3>
+                            <p class="project-role">Story Coordinator • Project Administrator</p>
+                            <p>Led story development and administrative planning for festival-selected short that garnered international recognition. Collaborated directly with director to refine narrative structure, implemented feedback tracking system, and built production schedule that accommodated creative exploration while maintaining deliverable deadlines. Coordinated external vendor relationships and ensured every asset met quality standards.</p>
+                            <div class="project-tags">
+                                <span class="tag">Story Development</span>
+                                <span class="tag">Creative Coordination</span>
+                                <span class="tag">Vendor Management</span>
+                                <span class="tag">Quality Assurance</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="skills" class="section">
+                <h2 class="section-title">Skills & Expertise</h2>
+                <div class="skills-grid">
+                    <div class="skill-category">
+                        <h3>Project Administration</h3>
+                        <ul>
+                            <li>Production scheduling & timeline management</li>
+                            <li>Budget tracking & financial oversight</li>
+                            <li>Cross-functional team coordination</li>
+                            <li>Risk assessment & mitigation planning</li>
+                            <li>Vendor & contractor management</li>
+                            <li>Resource allocation optimization</li>
+                        </ul>
+                    </div>
+
+                    <div class="skill-category">
+                        <h3>Pre-Production Mastery</h3>
+                        <ul>
+                            <li>Story development & narrative structure</li>
+                            <li>Script breakdown & analysis</li>
+                            <li>Storyboard review & coordination</li>
+                            <li>Character & world bible creation</li>
+                            <li>Animatic supervision & timing</li>
+                            <li>Design phase management</li>
+                        </ul>
+                    </div>
+
+                    <div class="skill-category">
+                        <h3>Pipeline & Systems</h3>
+                        <ul>
+                            <li>Animation production pipeline expertise</li>
+                            <li>Asset management systems</li>
+                            <li>Version control & approval workflows</li>
+                            <li>Production tracking software (Shotgun, Ftrack)</li>
+                            <li>Documentation standards & protocols</li>
+                            <li>Process optimization & automation</li>
+                        </ul>
+                    </div>
+
+                    <div class="skill-category">
+                        <h3>Creative Communication</h3>
+                        <ul>
+                            <li>Story beats & narrative analysis</li>
+                            <li>Script feedback & development notes</li>
+                            <li>Creative-technical translation</li>
+                            <li>Stakeholder & client communication</li>
+                            <li>Presentation & documentation</li>
+                            <li>Conflict resolution & problem-solving</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <section id="contact" class="contact-section">
+            <div class="container">
+                <h2 class="section-title">Let's Connect</h2>
+                <p style="font-size: 1.2em; margin-bottom: 40px; opacity: 0.9;">Ready to bring structure and excellence to your next animation project? I'd love to discuss how my pre-production and administrative expertise can elevate your team.</p>
+                <div class="contact-grid">
+                    <div class="contact-item">
+                        <h3>📧 Email</h3>
+                        <a href="mailto:your.email@example.com">your.email@example.com</a>
+                    </div>
+                    <div class="contact-item">
+                        <h3>💼 LinkedIn</h3>
+                        <a href="https://linkedin.com/in/yourprofile" target="_blank">linkedin.com/in/yourprofile</a>
+                    </div>
+                    <div class="contact-item">
+                        <h3>📱 Portfolio</h3>
+                        <a href="#work">View Complete Work</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <p>&copy; 2024 Your Name • Animation Pre-Production Specialist • All rights reserved</p>
+        </footer>
+    </div>
+</body>
+</html>
